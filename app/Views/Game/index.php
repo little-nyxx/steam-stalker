@@ -17,7 +17,7 @@
         <h2 class="py-2"><?=$game[0]->name_developer;?></h2>
         <p class="d-inline-block py-2"><?=date("d. m. Y", strtotime($game[0]->release_date))?></p>
 
-        <div style="text-align: justify;">
+        <div style="text-align: justify; overflow:hidden; max-height: 100px">
            <?= $game[0]->description;?>
            <div class="mt-3">
                 <p class="border d-inline-block fs-4 fw-bold px-3 py-2">$<?= $game[0]->price;?></p>
@@ -46,6 +46,8 @@
     }
 ?>
 </div>
+
+<?php echo $pager->links(); ?>
 
 
 <?=$this->endSection();?>
