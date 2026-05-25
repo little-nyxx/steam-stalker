@@ -6,3 +6,6 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('search', 'Home::search');
+$routes->get('game/(:num)', 'Home::game/$1');
+

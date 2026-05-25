@@ -6,6 +6,7 @@
 
 <?=$this->section("content"); ?>
 
+
 <div class="row pt-3">
     <div class="col-lg-6">
         <div class="position-relative" style="height:100%;">
@@ -13,8 +14,9 @@
         </div>
     </div>
     <div class="col-lg-6 mt-2">
-        <h1 style="text-align: left;"><?= $game[0]->name;?></h1>
-        <h2 class="py-2"><?=$game[0]->name_developer;?></h2>
+        <h1 style="text-align: left;"><?= anchor('game/' . $game[0]->id_game, $game[0]->name) ?></h1>
+        <h2 class="py-2"><?=$game[0]->name_developer;?></h2> 
+        <p class="card-text border d-inline-block px-2 py-1"><strong>$<?=$game[0]->price?></strong></p>
         <p class="d-inline-block py-2"><?=date("d. m. Y", strtotime($game[0]->release_date))?></p>
 
         <div style="text-align: justify; overflow:hidden; max-height: 100px">
@@ -36,7 +38,7 @@
             <div class="card h-100">
                 <img src="<?=$g->photo?>" class="card-img-top" alt="<?=$g->name?>">
                 <div class="card-body">
-                    <h5 class="card-title"><?=$g->name?></h5>
+                    <h5 class="card-title"><?= anchor('game/' . $g->id_game, $g->name) ?></h5>
                     <h6><?=$g->name_developer;?></h6>
                     <p class="card-text border d-inline-block px-2 py-1"><strong>$<?=$g->price?></strong></p>
                 </div>

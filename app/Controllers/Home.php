@@ -13,12 +13,16 @@ class Home extends BaseController
     var $developer;
     var $strankovani;
     var $config;
+    var $search;
+    var $searchPager;
 
     public function __construct() {
         $this->game = new Game();
         $this->developer = new Developer();
         $config = new MyConfig;
         $this->strankovani = $config->strankovani;
+        $this->search = "";
+        $this->searchPager = $config->searchPager;
     }
 
     public function index(): string
@@ -34,5 +38,39 @@ class Home extends BaseController
         $data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->orderBy("id_game", "asc")->paginate($this->strankovani);
         $data["pager"] = $this->game->pager;
         return view('Game/index.php', $data);
+    }
+
+    public function search() {
+        $request = service('request');
+		$searchData = $this->request->getGet(); // OR $this->request->getGet();
+
+		
+		if (isset($searchData) && isset($searchData['search'])) {
+			$search = $searchData['search'];
+		}
+
+        if ($search == '') {
+			$paginateData = $this->game->paginate($this->searchPager);
+		} else {
+			$paginateData = $this->game->select('*')
+				->orLike('name', $search)
+				->orLike('email', $search)    			
+				->paginate($this->searchPager);
+        } 
+        
+        $data = [
+			'game' => $paginateData,
+			'pager' => $this->game->pager,
+			'search' => $this->search
+		];
+
+        return view('Game/search-result.php', $data);
+
+    }
+
+    public function game($id) {
+        $data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->where("id_game", $id)->find($id);
+        var_dump($data["game"]);
+        return view('Game/game.php', $data);
     }
 }
