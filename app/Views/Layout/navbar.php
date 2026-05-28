@@ -18,5 +18,5 @@
       </div>
     </div>
   </form>
-  <a class="nav-item" style="text-align: right;"><?= anchor("#", "User", array('class' => 'fs-5 text-white text-decoration-none me-3')); ?></a>
+  <a class="nav-item" style="text-align: right;"><?= anchor("login", "User", array('class' => 'fs-5 text-white text-decoration-none me-3')); ?></a>
 </nav>

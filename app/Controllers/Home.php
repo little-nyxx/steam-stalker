@@ -69,8 +69,7 @@ class Home extends BaseController
     }
 
     public function game($id) {
-        $data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->where("id_game", $id)->find($id);
-        var_dump($data["game"]);
-        return view('Game/game.php', $data);
+        $data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->join("publisher", "publisher.id_publisher = game.publisher_id")->where("id_game", $id)->find($id);
+        return view('Game/game.php', $data); //!!!! Přejmenovala jsem si proměnou name z tabulky publisher na name_publisher
     }
 }
