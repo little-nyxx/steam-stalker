@@ -9,16 +9,36 @@ helper('form');?>
 
 <div class="col-12">
     <?= form_open_multipart("item/create") ?>
-    <form method="post" action="<?= base_url("item/create") ?>" class="mt-3">
+    
 
         <div class="row mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3 mt-3">
-                    <input type="name" class="form-control" id="name" placeholder="Game Name" name="name" required>
+                    <input type="text" class="form-control" id="name" placeholder="Game Name" name="name" required>
                     <label for="name">Game Name</label>
                 </div>
 
-                
+                <div class="mt-3">
+                <div class="mb-3">
+                    <select class="form-select mb-3" id="developer" name="developer" required>
+                        <option value="" disabled selected required>Select developer</option>
+                        <?php if (!empty($developer)): ?>
+                            <?php foreach ($developer as $developerr): ?>
+                                <option value="<?= esc($developerr->id_developer) ?>"><?= esc($developerr->name_developer) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+
+                    <select class="form-select" id="publisher" name="publisher" required>
+                        <option value="" disabled selected required>Select publisher</option>
+                        <?php if (!empty($publisher)): ?>
+                            <?php foreach ($publisher as $publisherr): ?>
+                            <option value="<?= esc($publisherr->id_publisher) ?>"><?= esc($publisherr->name_publisher) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    </div>
+                </div>
 
                 <div class="mb-3">
                     <label for="release" class="form-label">Release Date</label>
@@ -46,6 +66,50 @@ helper('form');?>
                     </div>
                 </div>
 
+                <div class="mt-3">
+                    <select class="form-select mb-3" id="genre" name="genre_id" required>
+                        <option value="" disabled selected required>Select genre</option>
+                        <?php if (!empty($genre)): ?>
+                            <?php foreach ($genre as $genree): ?>
+                                <option value="<?= esc($genree->id_genre) ?>"><?= esc($genree->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                </div>
+
+                <div class="mt-3">
+                    <select class="form-select mb-3" id="tag" name="tag_id" required>
+                        <option value="" disabled selected required>Select tag</option>
+                        <?php if (!empty($tag)): ?>
+                            <?php foreach ($tag as $tagg): ?>
+                                <option value="<?= esc($tagg->id_tag) ?>"><?= esc($tagg->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                </div>
+
+                <div class="mt-3">
+                    <select class="form-select mb-3" id="language_text" name="language_id_text" required>
+                        <option value="" disabled selected required>Select Language for Text</option>
+                        <?php if (!empty($language)): ?>
+                            <?php foreach ($language as $lang): ?>
+                                <option value="<?= esc($lang->id_language) ?>"><?= esc($lang->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                </div>
+
+                <div class="mt-3">
+                    <!-- Bootstrap Dual Listbox for selecting sound languages -->
+                    <label for="language_sound" class="form-label">Select Languages for Sound</label>
+                    <select multiple class="form-select duallistbox mb-3" id="language_sound" name="language_id_sound[]" required>
+                        <?php if (!empty($language)): ?>
+                            <?php foreach ($language as $lang): ?>
+                                <option value="<?= esc($lang->id_language) ?>"><?= esc($lang->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                </div>
             </div>
             <div class="col-7">
                 <div class="ms-2">
@@ -54,6 +118,38 @@ helper('form');?>
                         <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg" required>
                     </div>
                 </div>
+
+                
+
+                <div class="mt-3 ms-2">
+                    <label for="age" class="form-label">Required Age</label>
+                    <input type="number" class="form-control" id="age" name="age" required min="0" max="21" step="1">
+                </div>
+
+                <div class="mt-3 ms-2">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" name="price" required min="0" step="0.01" required>
+                </div>
+
+                <div class="mt-3 ms-2">
+                    <label for="achievements" class="form-label">Number of Achievements</label>
+                    <input type="number" class="form-control" id="achievements" name="achievements" required min="0" max="100" step="1" required>
+                </div>
+
+
+
+
+                <div class="form-floating mb-3 mt-3 ms-2">
+                    <input type="text" class="form-control" id="website" placeholder="Website" name="website" required>
+                    <label for="website">Website</label>
+                </div>
+
+                <div class="form-floating mb-3 mt-3 ms-2">
+                    <input type="text" class="form-control" id="email" placeholder="Email" name="email" required>
+                    <label for="email">Email</label>
+                </div>
+
+
             </div>
         </div>
         <div class="my-3"> 
@@ -63,8 +159,8 @@ helper('form');?>
             </div>
         </div>
 
-        <button class="btn btn-success mt-3 mb-3" style="float: right;" type="submit"><i class="fa-solid fa-paper-plane"></i> Odeslat</button>
-    </form>
+        <button class="btn btn-success mt-3 mb-3" style="float: right;" type="submit">Submit</button>
+    <?= form_close() ?>
 </div>
 
 <script>

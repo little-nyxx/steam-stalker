@@ -5,37 +5,59 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Game;
+use App\Models\Developer;
+use App\Models\Publisher;
+use App\Models\Genre;
+use App\Models\Tag;
+use App\Models\Language;
+use App\Controllers\Upload;
 
 class Item extends BaseController
 {
     var $game;
     var $upload;
+    var $developer;
+    var $publisher;
+    var $genre;
+    var $tag;
+    var $language;
 
     public function __construct() {
         $this->game = new Game();
         $this->upload = new Upload();
+        $this->developer = new Developer();
+        $this->publisher = new Publisher();
+        $this->genre = new Genre();
+        $this->tag = new Tag();
+        $this->language = new Language();
     }
 
     public function add() {
-        echo view("Item/add.php");
+        $data['developer'] = $this->developer->findAll();
+        $data['publisher'] = $this->publisher->findAll();
+        $data['genre'] = $this->genre->findAll();
+        $data['tag'] = $this->tag->findAll();
+        $data['language'] = $this->language->findAll();
+        echo view("Item/add.php", $data);
     }
 
     function create() {
         $name = $this->request->getPost("name");
         $release = strtotime($this->request->getPost("release"));
-        $age = 0;
-        $price = 0;
+        $age = $this->request->getPost("age");
+        $price = $this->request->getPost("price");
         $description = $this->request->getPost("text");
         $photo = $this->request->getFile("photo");
-        $website = "meow";
-        $email = "meow";
-        $windows = $this->request->getPost("windowsSwitch") ? 1 : 0;
-        $mac = $this->request->getPost("macSwitch") ? 1 : 0;
-        $linux = $this->request->getPost("linuxSwitch") ? 1 : 0;
-        $achievements = 0;
-        $developer = 0;
-        $publisher = 0; #idčka
+        $website = $this->request->getPost("website");
+        $email = $this->request->getPost("email");
+        $windows = $this->request->getPost("windows") ? 1 : 0;
+        $mac = $this->request->getPost("mac") ? 1 : 0;
+        $linux = $this->request->getPost("linux") ? 1 : 0;
+        $achievements = $this->request->getPost("achievements");
+        $developer = $this->request->getPost("developer");
+        $publisher = $this->request->getPost("publisher");
 
+        var_dump($developer);
 
         $path = "img/main/";
         $image = $this->upload->uploadFile($photo, $path, $photo->getName());
@@ -53,8 +75,8 @@ class Item extends BaseController
             'mac' => $mac,
             'linux' => $linux,
             'achievements' => $achievements,
-            'developer' => $developer,
-            'publisher' => $publisher,
+            'developer_id' => $developer,
+            'publisher_id' => $publisher,
         );
         
         $this->game->save($data);
