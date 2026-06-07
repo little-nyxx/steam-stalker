@@ -12,7 +12,7 @@ class Game extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ["name", "release_date", "required_age", "price", "description", "photo", "website", "email", "windows", "mac", "linux", "achievements", "developer_id", "publisher_id"];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

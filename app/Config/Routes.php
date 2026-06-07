@@ -13,3 +13,8 @@ $routes->group('game', function($routes){
 });
 
 $routes->get('login', 'Login::index');
+
+$routes->group('item', function($routes){
+    $routes->get('add', 'Item::add');
+    $routes->post('create', 'Item::create');
+});
