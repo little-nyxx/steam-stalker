@@ -35,7 +35,7 @@ class Home extends BaseController
         //$data["developer"] = $this->developer->join('game', 'game.developer_id = developer.id_developer')->findAll();
         //$data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->orderBy("id_game", "asc")->findAll(9);
         
-        $data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->orderBy("id_game", "asc")->paginate($this->strankovani);
+        $data["game"] = $this->game->join("developer", "developer.id_developer = game.developer_id")->orderBy("id_game", "asc")->where("game.isDeleted", 0)->paginate($this->strankovani);
         $data["pager"] = $this->game->pager;
         return view('Game/index.php', $data);
     }

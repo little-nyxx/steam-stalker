@@ -11,6 +11,7 @@ use App\Models\Genre;
 use App\Models\Tag;
 use App\Models\Language;
 use App\Controllers\Upload;
+use Config\Config;
 
 class Item extends BaseController
 {
@@ -21,6 +22,8 @@ class Item extends BaseController
     var $genre;
     var $tag;
     var $language;
+    var $result;
+    var $alertMessage;
 
     public function __construct() {
         $this->game = new Game();
@@ -32,12 +35,14 @@ class Item extends BaseController
         $this->language = new Language();
     }
 
+
     public function add() {
         $data['developer'] = $this->developer->findAll();
         $data['publisher'] = $this->publisher->findAll();
         $data['genre'] = $this->genre->findAll();
         $data['tag'] = $this->tag->findAll();
         $data['language'] = $this->language->findAll();
+        
         echo view("Item/add.php", $data);
     }
 
@@ -57,7 +62,7 @@ class Item extends BaseController
         $developer = $this->request->getPost("developer");
         $publisher = $this->request->getPost("publisher");
 
-        var_dump($developer);
+        //var_dump($developer);
 
         $path = "img/main/";
         $image = $this->upload->uploadFile($photo, $path, $photo->getName());
@@ -81,7 +86,57 @@ class Item extends BaseController
         
         $this->game->save($data);
 
+        return redirect()->route('dashboard');
+    }
 
+     public function update() {
+        $id = $this->request->getPost('id');
+        //$link = $this->request->getPost('link');
+        $name = $this->request->getPost('name');
+        $photoname = $this->request->getFile('photo');
+        //$cesta = "obrazky/sigma/";
+        
+        //$date = strtotime($this->request->getPost('date'));
+        $windows = $this->request->getPost('windows') ? 1 : 0;
+        $mac = $this->request->getPost('mac') ? 1 : 0;
+        $linux = $this->request->getPost('linux') ? 1 : 0;
+        $description = $this->request->getPost('text');
+       // $published = $this->request->getPost('published');
+        $data = array(
+            'id' => $id,
+            //'link' => $link,
+            'name' => $name,
+            //'date' => $date,
+            'windows' => $windows,
+            'mac' => $mac,
+            'linux' => $linux,
+            'description' => $description,
+        );
+
+        if($photoname != "") {
+            $photo = $this->upload->uploadFile($photoname, $cesta, $photoname->getName());
+            $data["photo"] = $photo["name"];
+        }
+ 
+        $this->game->save($data);
+        //$data["link"] = "game/".$id."-".$link;
+
+        $this->game->update($id, $data);
+
+        return redirect()->route('dashboard');
+    }
+
+
+    public function delete($id_game) {
+        $result = $this->game->update($id_game, ['isDeleted' => 1]); //toto nefacha prosim o pomoc, nevim co s tim nechce to najit objekt jsem zoufala
+        return redirect()->route('dashboard');
+    }
+
+    public function edit($id_game) {
+        $data["game"] = $this->game->find($id_game);
+        
+
+        echo view('item/edit', $data);
     }
 
     public function index()

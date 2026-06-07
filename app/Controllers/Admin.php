@@ -4,28 +4,48 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use IonAuth\Libraries\IonAuth;
+use stdClass;
+use Config\Config;
+use App\Models\Game;
 
 class Admin extends BaseController
+
 {
+    protected $ionAuth;
+    protected $config;
+    var $game;
+
+    public function __construct()
+    {
+        $this->ionAuth = new IonAuth();
+        $this->config = new Config();
+        $this->game = new Game();
+    }
+
     public function index()
     {
-        return view('Admin/dashboard');
+        $game = $this->game->findAll();
+        $data['game'] = $game;
+        return view('Login/dashboard', $data);
     }
 
     public function login()
     {
-         $login = $this->request->getPost("login");
+        $login = $this->request->getPost("email");
         $password = $this->request->getPost("password");
         $logged = $this->ionAuth->login($login, $password);
         $alertObject = new stdClass();
         if($logged) {
             $alertObject->text = $this->config->errorMessage['loginSuccess'];
             $alertObject->type = 'success';
-            return redirect()->to('Login/dashboard')->with('alert', $alertObject);
+            return redirect()->to('dashboard')->with('alert', $alertObject);
         } else {
             $alertObject->text = $this->config->errorMessage['loginDanger'];
             $alertObject->type = 'danger';
-            return redirect()->to("Login/login")->with('alert', $alertObject);
+            return redirect()->to("login")->with('alert', $alertObject);
         }
     }
+
+    
 }
