@@ -4,7 +4,11 @@
 <?=$this->endSection();?>
 
 <?=$this->section("content"); ?>
-
+<?php
+/**
+ * @var object $game
+ */
+?>
 <div class="row pt-3">
     <div class="col-lg-6">
         <?php 

@@ -8,6 +8,7 @@ use IonAuth\Libraries\IonAuth;
 use stdClass;
 use Config\Config;
 use App\Models\Game;
+use Config\MyConfig;
 
 class Admin extends BaseController
 
@@ -15,18 +16,23 @@ class Admin extends BaseController
     protected $ionAuth;
     protected $config;
     var $game;
+    var $dashPager;
+    var $configu;
 
     public function __construct()
     {
         $this->ionAuth = new IonAuth();
         $this->config = new Config();
         $this->game = new Game();
+        $configu = new MyConfig;
+        $this->dashPager = $configu->dashPager;
     }
 
     public function index()
     {
-        $game = $this->game->findAll();
+        $game = $this->game->paginate($this->dashPager);
         $data['game'] = $game;
+        $data['pager'] = $this->game->pager;
         return view('Login/dashboard', $data);
     }
 

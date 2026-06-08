@@ -72,19 +72,19 @@ $img = array(
 
                 <div class="mt-3 ms-2">
                     <label for="achievements" class="form-label">Number of Achievements</label>
-                    <input type="number" class="form-control" id="achievements" name="achievements" required min="0" max="100" step="1" required value="<?= $game->achievements ?>">
+                    <input type="number" class="form-control" id="achievements" name="achievements" required min="0" max="100" step="1" value="<?= $game->achievements ?>">
                 </div>
 
 
 
 
                 <div class="form-floating mb-3 mt-3 ms-2">
-                    <input type="text" class="form-control" id="website" placeholder="Website" name="website" required value="<?= $game->website ?>">
+                    <input type="text" class="form-control" id="website" placeholder="Website" name="website" value="<?= $game->website ?>">
                     <label for="website">Website</label>
                 </div>
 
                 <div class="form-floating mb-3 mt-3 ms-2">
-                    <input type="text" class="form-control" id="email" placeholder="Email" name="email" required value="<?= $game->email ?>">
+                    <input type="text" class="form-control" id="email" placeholder="Email" name="email" value="<?= $game->email ?>">
                     <label for="email">Email</label>
                 </div>
 
@@ -109,6 +109,7 @@ $img = array(
         selector: 'textarea#text',
         plugins: 'a_tinymce_plugin',
         toolbar: 'template',
+        promotion: false,
         a_plugin_option: true,
         a_configuration_option: 400
     });

@@ -8,5 +8,6 @@ class MyConfig extends BaseConfig
 {
     var $strankovani = 9;
     var $searchPager = 12;
+    var $dashPager = 20;
     
 }

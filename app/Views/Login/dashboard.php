@@ -57,4 +57,6 @@
     ?>
 </table>
 
+<?php echo $pager->links(); ?>
+
 <?=$this->endSection(); ?>

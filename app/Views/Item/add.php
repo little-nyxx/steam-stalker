@@ -170,6 +170,7 @@ helper('form');?>
         selector: 'textarea#text',
         plugins: 'a_tinymce_plugin',
         toolbar: 'template',
+        promotion: false,
         a_plugin_option: true,
         a_configuration_option: 400
     });

@@ -9,6 +9,7 @@
 <body>
     <?= $this->include("Layout/navbar"); ?>
     <div class="container">
+        <?= $this->include('layout/alert') ?>
         <?= $this->renderSection("content"); ?>
     </div>
 </body>

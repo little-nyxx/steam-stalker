@@ -94,29 +94,32 @@ class Item extends BaseController
         //$link = $this->request->getPost('link');
         $name = $this->request->getPost('name');
         $photoname = $this->request->getFile('photo');
-        //$cesta = "obrazky/sigma/";
+        $path = "img/main/";
         
-        //$date = strtotime($this->request->getPost('date'));
+        $date = strtotime($this->request->getPost('date'));
         $windows = $this->request->getPost('windows') ? 1 : 0;
         $mac = $this->request->getPost('mac') ? 1 : 0;
         $linux = $this->request->getPost('linux') ? 1 : 0;
         $description = $this->request->getPost('text');
        // $published = $this->request->getPost('published');
+
+       if($photoname != "") {
+        $photo = $this->upload->uploadFile($photoname, $path, $photoname->getName());
+        $data["photo"] = $photo["name"];
+    }
+       
         $data = array(
             'id' => $id,
             //'link' => $link,
             'name' => $name,
-            //'date' => $date,
+            'date' => $date,
             'windows' => $windows,
             'mac' => $mac,
             'linux' => $linux,
             'description' => $description,
         );
 
-        if($photoname != "") {
-            $photo = $this->upload->uploadFile($photoname, $cesta, $photoname->getName());
-            $data["photo"] = $photo["name"];
-        }
+        
  
         $this->game->save($data);
         //$data["link"] = "game/".$id."-".$link;
