@@ -131,7 +131,7 @@ class Item extends BaseController
 
 
     public function delete($id_game) {
-        $result = $this->game->update($id_game, ['isDeleted' => 1]); //toto nefacha prosim o pomoc, nevim co s tim nechce to najit objekt jsem zoufala
+        $result = $this->game->delete($id_game); //toto nefacha prosim o pomoc, nevim co s tim nechce to najit objekt jsem zoufala
         return redirect()->route('dashboard');
     }
 
