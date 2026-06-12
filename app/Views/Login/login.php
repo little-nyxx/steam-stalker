@@ -33,7 +33,7 @@
                 // toggle the eye slash icon
                 this.classList.toggle('bi-eye');
             }); </script>
-          <label for="password"><i class="fa-solid fa-lock"></i> Heslo:</label>
+          <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
         </div>
 
         <div>

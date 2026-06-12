@@ -4,8 +4,15 @@
     <title>Add</title>
 <?=$this->endSection();?>
 
-<?=$this->section("content"); 
-helper('form');?>
+<?=$this->section("content"); ?>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><?=anchor("dashboard", "Dashboard") ?></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Game</li>
+    </ol>
+    </nav> 
+<?php
+    helper('form');?>
 
 <div class="col-12">
     <?= form_open_multipart("item/create") ?>

@@ -1,6 +1,12 @@
 <?= $this->extend('layout/sablona'); ?>
 
 <?= $this->section('content'); ?>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><?=anchor("dashboard", "Dashboard") ?></li>
+        <li class="breadcrumb-item active" aria-current="page"><?= $game->name ?></li>
+    </ol>
+    </nav> 
 <?php
 $img = array(
     "src" => $game->photo,
