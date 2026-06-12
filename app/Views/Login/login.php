@@ -21,6 +21,18 @@
         </div> <!-- email jestli chceme udělat to přihlášení na jedno pomocí username i emailu?? => případně to udělat na přepínání? --> 
        <div class="mb-3 mt-3 form-floating">
           <input type="password" class="form-control" placeholder="Heslo" id="password" name="password" minlength="8" required>
+          <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);"></i>
+           <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('bi-eye');
+            }); </script>
           <label for="password"><i class="fa-solid fa-lock"></i> Heslo:</label>
         </div>
 
