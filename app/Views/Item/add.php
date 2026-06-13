@@ -16,8 +16,6 @@
 
 <div class="col-12">
     <?= form_open_multipart("item/create") ?>
-    
-
         <div class="row mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3 mt-3">
@@ -107,6 +105,28 @@
                 </div>
 
                 <div class="mt-3">
+                    <pre class="prettyprint">
+                    var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();</pre> <!-- Nefunkční idk proč už :C -->
+                        <select multiple="multiple" id="duallistbox_demo1" class="duallistbox" name="duallistbox_demo1[]">
+                        <?php if (!empty($language)): ?>
+                            <?php foreach ($language as $lang): ?>
+                                <option value="<?= esc($lang->id_language) ?>"><?= esc($lang->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                        </select>
+                        <br>
+                    <script>
+                        var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_demo1[]"]').val());
+                        return false;
+                        });
+                    </script>
+
+
+
+
+
                     <!-- Bootstrap Dual Listbox for selecting sound languages -->
                     <label for="language_sound" class="form-label">Select Languages for Sound</label>
                     <select multiple class="form-select duallistbox mb-3" id="language_sound" name="language_id_sound[]" required>

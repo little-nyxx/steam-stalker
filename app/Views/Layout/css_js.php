@@ -5,3 +5,9 @@
 <script src='<?= base_url("node_modules/bootstrap/dist/js/bootstrap.bundle.min.js")?>'></script>  
 <script src='<?= base_url("node_modules/bootstrap/dist/js/bootstrap.min.js")?>'></script>
 <script src='<?= base_url("../vendor/tinymce/tinymce/tinymce.min.js")?>'></script>
+
+
+<link rel="stylesheet" type="text/css" href="<?= base_url('node_modules/bootstrap-duallistbox-master/src/bootstrap-duallistbox.css')?>">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+<script src="<?= base_url('node_modules/bootstrap-duallistbox-master/src/jquery.bootstrap-duallistbox.js')?>"></script>

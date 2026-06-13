@@ -48,9 +48,9 @@ class Item extends BaseController
 
     function create() {
         $name = $this->request->getPost("name");
-        $release = strtotime($this->request->getPost("release"));
-        $age = $this->request->getPost("age");
-        $price = $this->request->getPost("price");
+        $release = $this->request->getPost("release");
+        $age = $this->request->getPost("age") ?? 0;
+        $price = $this->request->getPost("price") ?? 0;
         $description = $this->request->getPost("text");
         $photo = $this->request->getFile("photo");
         $website = $this->request->getPost("website");
@@ -62,10 +62,18 @@ class Item extends BaseController
         $developer = $this->request->getPost("developer");
         $publisher = $this->request->getPost("publisher");
 
-        //var_dump($developer);
-
         $path = "img/main/";
         $image = $this->upload->uploadFile($photo, $path, $photo->getName());
+
+        $language_sound = $this->request->getPost("language_id_sound[]");
+        //echo($language_sound); //nefunguje ale duallistbox, takže toto nic nedělá
+        if (is_array($language_sound)) {
+            $language_sound_str = implode(',', $language_sound);
+            echo($language_sound_str);
+        } else {
+            $language_sound_str = $language_sound;
+            echo($language_sound_str);
+        }
 
         $data = array(
             'name' => $name,
@@ -86,7 +94,11 @@ class Item extends BaseController
         
         $this->game->save($data);
 
-        return redirect()->route('dashboard');
+        //echo($this->request->getPost("language_id_sound"));
+
+        //echo ($gameId = $this->game->insertID());
+
+        //return redirect()->to('dashboard')->with("success", "Game added"); //toto nakonec odkomentovat
     }
 
      public function update() {
@@ -131,8 +143,17 @@ class Item extends BaseController
 
 
     public function delete($id_game) {
-        $result = $this->game->delete($id_game); //toto nefacha prosim o pomoc, nevim co s tim nechce to najit objekt jsem zoufala
-        return redirect()->route('dashboard');
+        $game_del = $this->game->find($id_game);
+        if ($game_del == null) {
+            return redirect()->to('/dashboard')->with('error', 'Game not found');
+        }
+
+        $this->game->update($id_game, ['deleted_at' => date('Y-m-d H:i:s')]);
+
+        return redirect()->to('/dashboard')->with('success', 'Game moved to trash (soft deleted)');
+
+        //$result = $this->game->delete($id_game); //toto nefacha prosim o pomoc, nevim co s tim nechce to najit objekt jsem zoufala
+        //return redirect()->route('dashboard');
     }
 
     public function edit($id_game) {
