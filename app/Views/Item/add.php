@@ -1,7 +1,7 @@
 <?= $this->extend("layout/sablona"); ?>
 
-<?= $this->section("titulek"); ?>
-    <title>Add</title>
+<?= $this->section("title"); ?>
+    <title>Steam Database - Add Game</title>
 <?=$this->endSection();?>
 
 <?=$this->section("content"); ?>
@@ -12,7 +12,8 @@
     </ol>
     </nav> 
 <?php
-    helper('form');?>
+    helper('form');
+?>
 
 <div class="col-12">
     <?= form_open_multipart("item/create") ?>
@@ -127,7 +128,7 @@
 
 
 
-                    <!-- Bootstrap Dual Listbox for selecting sound languages -->
+                    
                     <label for="language_sound" class="form-label">Select Languages for Sound</label>
                     <select multiple class="form-select duallistbox mb-3" id="language_sound" name="language_id_sound[]" required>
                         <?php if (!empty($language)): ?>
@@ -167,12 +168,12 @@
 
 
                 <div class="form-floating mb-3 mt-3 ms-2">
-                    <input type="text" class="form-control" id="website" placeholder="Website" name="website" required>
+                    <input type="text" class="form-control" id="website" placeholder="Website" name="website">
                     <label for="website">Website</label>
                 </div>
 
                 <div class="form-floating mb-3 mt-3 ms-2">
-                    <input type="text" class="form-control" id="email" placeholder="Email" name="email" required>
+                    <input type="text" class="form-control" id="email" placeholder="Email" name="email">
                     <label for="email">Email</label>
                 </div>
 

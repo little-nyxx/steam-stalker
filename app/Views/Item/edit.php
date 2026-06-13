@@ -1,5 +1,9 @@
 <?= $this->extend('layout/sablona'); ?>
 
+<?= $this->section("title"); ?>
+    <title>Steam Database - Edit Game <?= $game->name ?></title>
+<?=$this->endSection();?>
+
 <?= $this->section('content'); ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -8,12 +12,10 @@
     </ol>
     </nav> 
 <?php
-$img = array(
-    "src" => $game->photo,
-    "class" => "p-3",
-);
- ?>
-<form  method="post" action="<?= base_url("item/update") ?>">
+    helper('form');
+?>
+
+<form  method="post" action="<?= base_url("item/update/".$game->id_game) ?>">
     <div class="row mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3 mt-3">
@@ -21,11 +23,31 @@ $img = array(
                     <label for="name">Game Name</label>
                 </div>
 
-                
+                <div class="mt-3">
+                <div class="mb-3">
+                    <select class="form-select mb-3" id="developer" name="developer" required>
+                        <option value="" disabled selected required>Select developer</option>
+                        <?php if (!empty($developer)): ?>
+                            <?php foreach ($developer as $developerr): ?>
+                                <option value="<?= esc($developerr->id_developer) ?>" <?php if ($game->developer_id == $developerr->id_developer) echo 'selected'; ?>><?= esc($developerr->name_developer) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+
+                    <select class="form-select" id="publisher" name="publisher" required>
+                        <option value="" disabled selected required>Select publisher</option>
+                        <?php if (!empty($publisher)): ?>
+                            <?php foreach ($publisher as $publisherr): ?>
+                            <option value="<?= esc($publisherr->id_publisher) ?>" <?php if ($game->publisher_id == $publisherr->id_publisher) echo 'selected'; ?>><?= esc($publisherr->name_publisher) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    </div>
+                </div>
 
                 <div class="mb-3">
                     <label for="release" class="form-label">Release Date</label>
-                    <input type="date" class="form-control" id="release" name="release" required value="<?= $game->release_date ?>">
+                    <input type="date" class="form-control" id="release" name="release" required value="<?= date('Y-m-d', strtotime($game->release_date)) ?>">
                 </div>
 
                 <div>
@@ -33,21 +55,21 @@ $img = array(
                     <input type="hidden" name="windows" value="0">
                     <div class="form-check form-switch">
                         <input value="<?= $game->windows ?>" name="windows" class="form-check-input" type="checkbox" id="windowsSwitch" <?php
-    if($game->windows == 1) { echo "checked";}?>>
+                        if($game->windows == 1) { echo "checked";}?>>
                         <label class="form-check-label" for="windowsSwitch">Windows</label>
                     </div>
 
                     <input type="hidden" name="mac" value="0">
                     <div class="form-check form-switch">
                         <input value="<?= $game->mac ?>" name="mac" class="form-check-input" type="checkbox" id="macSwitch" <?php
-    if($game->mac == 1) { echo "checked";}?>>
+                        if($game->mac == 1) { echo "checked";}?>>
                         <label class="form-check-label" for="macSwitch">Mac</label>
                     </div>
 
                     <input type="hidden" name="linux" value="0">
                     <div class="form-check form-switch">
                         <input value="<?= $game->linux ?>" name="linux" class="form-check-input" type="checkbox" id="linuxSwitch" <?php
-    if($game->linux == 1) { echo "checked";}?>>
+                        if($game->linux == 1) { echo "checked";}?>>
                         <label class="form-check-label" for="linuxSwitch">Linux</label>
                     </div>
                 </div>
@@ -57,12 +79,21 @@ $img = array(
                 
             </div>
             <div class="col-7">
-                <!-- <div class="ms-2">
-                    <div>
-                        <label for="photo" class="form-label">Photo</label>
-                        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg" required>
-                    </div>
-                </div> -->
+                <div class="ms-2">
+                    <label for="photo" class="form-label">Photo</label>
+                    <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg">
+                    <?php
+                    if ($game->photo[0] == "-") {
+                        $img = array(
+                            "src" => base_url('img/main/'.$game->photo),
+                            "class" => "w-100 mt-2",
+                            "alt" => $game->name,
+                        );
+                        echo img($img);
+                    } else { ?>
+                        <img class="w-100 mt-2" src="<?= $game->photo ?>" alt="<?= $game->name ?>">
+                    <?php } ?>
+                </div>
 
                 
 
@@ -105,8 +136,8 @@ $img = array(
         </div>
 
         <button class="btn btn-success mt-3 mb-3" style="float: right;" type="submit">Submit</button>
-    
-</div>
+    </div>
+</form>
 
 <script>
     tinymce.init({
@@ -121,9 +152,6 @@ $img = array(
     });
 </script>
     
-    <button type="submit" class="btn btn-primary">Edit</button>
-    <input type="hidden" name="id" value="<?= $game->id_game ?>">
-    <input type="hidden" name="_method" value="PUT">
-</form>
+
 
 <?=$this->endSection(); ?>

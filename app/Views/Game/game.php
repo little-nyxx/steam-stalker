@@ -1,13 +1,11 @@
 <?= $this->extend("layout/sablona"); ?>
 <?= $this->section("title"); ?>
-    <title>Steam Database</title>
+    <title>Steam Database - <?= $game->name ?></title>
 <?=$this->endSection();?>
 
 <?=$this->section("content"); ?>
 <?php
-/**
- * @var object $game
- */
+
 ?>
 <div class="row pt-3">
     <div class="col-lg-6">

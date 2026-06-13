@@ -32,7 +32,11 @@
         <p class="d-inline-block py-2"><?=date("d. m. Y", strtotime($game[0]->release_date))?></p>
 
         <div style="text-align: justify; overflow:hidden; max-height: 100px">
-           <?= $game[0]->description;?>
+            <?php if ($game[0]->description[0] == "<") {
+                echo $game[0]->description;
+            } else {?>
+                <p class="card-text"><?= $game[0]->description;?></p>
+            <?php } ?>
            <div class="mt-3">
                 <p class="border d-inline-block fs-4 fw-bold px-3 py-2">$<?= $game[0]->price;?></p>
             </div>

@@ -101,44 +101,57 @@ class Item extends BaseController
         //return redirect()->to('dashboard')->with("success", "Game added"); //toto nakonec odkomentovat
     }
 
-     public function update() {
-        $id = $this->request->getPost('id');
-        //$link = $this->request->getPost('link');
-        $name = $this->request->getPost('name');
-        $photoname = $this->request->getFile('photo');
-        $path = "img/main/";
-        
-        $date = strtotime($this->request->getPost('date'));
-        $windows = $this->request->getPost('windows') ? 1 : 0;
-        $mac = $this->request->getPost('mac') ? 1 : 0;
-        $linux = $this->request->getPost('linux') ? 1 : 0;
-        $description = $this->request->getPost('text');
-       // $published = $this->request->getPost('published');
+     public function update($id_game) {
+        $game = $this->game->find($id_game);
+        if ($game == null) {
+            return redirect()->to('dashboard')->with('error', 'Game not found');
+        }
+        $name = $this->request->getPost("name");
+        $release = $this->request->getPost("release");
+        $age = $this->request->getPost("age") ?? 0;
+        $price = $this->request->getPost("price") ?? 0;
+        $description = $this->request->getPost("text");
+        $photo = $this->request->getFile("photo");
+        $website = $this->request->getPost("website");
+        $email = $this->request->getPost("email");
+        $windows = $this->request->getPost("windows") ? 1 : 0;
+        $mac = $this->request->getPost("mac") ? 1 : 0;
+        $linux = $this->request->getPost("linux") ? 1 : 0;
+        $achievements = $this->request->getPost("achievements");
+        $developer = $this->request->getPost("developer");
+        $publisher = $this->request->getPost("publisher");
 
-       if($photoname != "") {
-        $photo = $this->upload->uploadFile($photoname, $path, $photoname->getName());
-        $data["photo"] = $photo["name"];
-    }
-       
         $data = array(
-            'id' => $id,
-            //'link' => $link,
             'name' => $name,
-            'date' => $date,
+            'release_date' => $release,
+            'required_age' => $age,
+            'price' => $price,
+            'description' => $description,
+            'website' => $website,
+            'email' => $email,
             'windows' => $windows,
             'mac' => $mac,
             'linux' => $linux,
-            'description' => $description,
+            'achievements' => $achievements,
+            'developer_id' => $developer,
+            'publisher_id' => $publisher,
         );
 
-        
- 
-        $this->game->save($data);
-        //$data["link"] = "game/".$id."-".$link;
+        var_dump($photo);
 
-        $this->game->update($id, $data);
+        if ($photo != "") {
+            $path = "img/main/";
+            $image = $this->upload->uploadFile($photo, $path, $photo->getName());
+            $meow = FCPATH.$path;
+            unlink($meow.$game->photo);
+            $data["photo"] = $image["name"];
+            echo($meow);
+        }
 
-        return redirect()->route('dashboard');
+        $this->game->update($id_game, $data);
+
+
+        //return redirect()->route('dashboard')->with("success", "Game updated");
     }
 
 
@@ -158,7 +171,11 @@ class Item extends BaseController
 
     public function edit($id_game) {
         $data["game"] = $this->game->find($id_game);
-        
+        $data['developer'] = $this->developer->findAll();
+        $data['publisher'] = $this->publisher->findAll();
+        $data['genre'] = $this->genre->findAll();
+        $data['tag'] = $this->tag->findAll();
+        $data['language'] = $this->language->findAll();
 
         echo view('item/edit', $data);
     }

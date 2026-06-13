@@ -15,7 +15,7 @@ $routes->group('game', function($routes){
 $routes->group('item', function($routes){
     $routes->get('add', 'Item::add');
     $routes->post('create', 'Item::create');
-    $routes->put('update', 'Item::update');
+    $routes->post('update/(:num)', 'Item::update/$1');
     $routes->post('(:num)/delete', 'Item::delete/$1');
 });
 
