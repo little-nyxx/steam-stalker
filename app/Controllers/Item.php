@@ -143,9 +143,12 @@ class Item extends BaseController
             $path = "img/main/";
             $image = $this->upload->uploadFile($photo, $path, $photo->getName());
             $meow = FCPATH.$path;
-            unlink($meow.$game->photo);
+            if (file_exists($meow.$game->photo)) {
+                unlink($meow.$game->photo);
+            }
+            //unlink($meow.$game->photo);
             $data["photo"] = $image["name"];
-            echo($meow);
+            echo($meow.$game->photo);
         }
 
         $this->game->update($id_game, $data);

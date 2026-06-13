@@ -15,7 +15,8 @@
     helper('form');
 ?>
 
-<form  method="post" action="<?= base_url("item/update/".$game->id_game) ?>">
+<div class="col-12">
+    <?= form_open_multipart("item/update/".$game->id_game) ?>
     <div class="row mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3 mt-3">
@@ -137,7 +138,8 @@
 
         <button class="btn btn-success mt-3 mb-3" style="float: right;" type="submit">Submit</button>
     </div>
-</form>
+<?= form_close() ?>
+<div>
 
 <script>
     tinymce.init({
