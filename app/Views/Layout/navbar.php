@@ -5,7 +5,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarColor01">
     <div class="mb-3 mt-3">
-      <a class="nav-item me-3"><?= anchor("/", "<i class=\"fa-solid fa-igloo\"></i> Home", array('class' => 'fs-5 text-white text-decoration-none')); ?></a>
+      <a class="nav-item me-3"><?= anchor("/", "Home", array('class' => 'fs-5 text-white text-decoration-none')); ?></a>
+    </div>
+    <div class="mb-3 mt-3">
+      <a class="nav-item me-3"><?= anchor("game/choose", "Choose Games", array('class' => 'fs-5 text-white text-decoration-none')); ?></a>
     </div>
   </div>
   <form method='get' action="search" id="searchForm">

@@ -10,6 +10,8 @@ $routes->get('search', 'Home::search');
 $routes->group('game', function($routes){
     $routes->get('search', 'Home::search');
     $routes->get('(:num)', 'Home::game/$1');
+    $routes->post('(:num)/(:num)', 'Home::test/$1/$2');
+    $routes->get('choose', 'Home::choose');
 });
 
 $routes->group('item', function($routes){
@@ -27,3 +29,4 @@ $routes->post('login', 'Admin::login');
 $routes->get('login', 'Login::index');
 $routes->get('dashboard', 'Admin::index');
 $routes->get('/game/(:num)/edit', 'Item::edit/$1');
+

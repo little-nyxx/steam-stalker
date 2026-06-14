@@ -97,7 +97,6 @@ class Item extends BaseController
         $this->game->save($data);
 
         $id_game = $this->game->insertID();
-        echo($id_game);
         $language_sound_selected = $this->request->getPost('duallistbox_lang_sound[]');
         $ids = is_array($language_sound_selected) ? array_map('intval', $language_sound_selected) : [];
 
@@ -173,7 +172,7 @@ class Item extends BaseController
 
         //echo ($gameId = $this->game->insertID());
 
-        //return redirect()->to('dashboard')->with("success", "Game added"); //toto nakonec odkomentovat
+        return redirect()->to('dashboard')->with("success", "Game added");
     }
 
      public function update($id_game) {
@@ -308,7 +307,7 @@ class Item extends BaseController
     
 
 
-        //return redirect()->route('dashboard')->with("success", "Game updated");
+        return redirect()->route('dashboard')->with("success", "Game updated");
     }
 
 
@@ -320,7 +319,7 @@ class Item extends BaseController
 
         $this->game->update($id_game, ['deleted_at' => date('Y-m-d H:i:s')]);
 
-        return redirect()->to('/dashboard')->with('success', 'Game moved to trash (soft deleted)');
+        return redirect()->to('dashboard')->with('success', 'Game moved to trash (soft deleted)');
 
         //$result = $this->game->delete($id_game); //toto nefacha prosim o pomoc, nevim co s tim nechce to najit objekt jsem zoufala
         //return redirect()->route('dashboard');
