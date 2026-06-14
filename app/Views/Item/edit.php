@@ -76,41 +76,6 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5>Genres</h5>
-                    <select multiple="multiple" id="duallistbox_genres" class="duallistbox" name="duallistbox_genres[]">
-                        <?php if (!empty($genre)): ?>
-                            <?php foreach ($genre as $g): ?>
-                                <option value="<?= esc($g->id_genre) ?>" <?php if (in_array($g->id_genre, array_column($game_genre, 'genre_id_genre'))) echo 'selected'; ?>><?= esc($g->name) ?></option>
-                            <?php endforeach ?>
-                        <?php endif ?>
-                    </select>
-                    <script style="display: none;">
-                        var sound = $('select[name="duallistbox_genres[]"]').bootstrapDualListbox();
-                        $("#demoform").submit(function() {
-                        alert($('[name="duallistbox_genres[]"]').val());
-                        return false;
-                        });
-                    </script>
-
-                    <h5 class="mt-2">Tags</h5>
-                    <select multiple="multiple" id="duallistbox_tags" class="duallistbox" name="duallistbox_tags[]">
-                        <?php if (!empty($tag)): ?>
-                            <?php foreach ($tag as $t): ?>
-                                <option value="<?= esc($t->id_tag) ?>" <?php if (in_array($t->id_tag, array_column($game_tag, 'tag_id_tag'))) echo 'selected'; ?>><?= esc($t->name) ?></option>
-                            <?php endforeach ?>
-                        <?php endif ?>
-                    </select>
-                    <script style="display: none;">
-                        var sound = $('select[name="duallistbox_tags[]"]').bootstrapDualListbox();
-                        $("#demoform").submit(function() {
-                        alert($('[name="duallistbox_tags[]"]').val());
-                        return false;
-                        });
-                    </script>
-            </div>
-
-
-                <div class="mt-3">
                     <h5>Languages</h5>
                     <h6>Sound</h6>
                     <select multiple="multiple" id="duallistbox_lang_sound" class="duallistbox" name="duallistbox_lang_sound[]">
@@ -143,27 +108,43 @@
                         return false;
                         });
                     </script>
+                    </div>
             </div>
 
-            <div class="col-7">
-                <div class="ms-2">
-                    <label for="photo" class="form-label">Photo</label>
-                    <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg">
-                    <?php
-                    if ($game->photo[0] == "-") {
-                        $img = array(
-                            "src" => base_url('img/main/'.$game->photo),
-                            "class" => "w-100 mt-2",
-                            "alt" => $game->name,
-                        );
-                        echo img($img);
-                    } else { ?>
-                        <img class="w-100 mt-2" src="<?= $game->photo ?>" alt="<?= $game->name ?>">
-                    <?php } ?>
-                </div>
+            <div class="col-6">
+                <div class="mt-3 ms-2">
+                    <h5>Genres</h5>
+                    <select multiple="multiple" id="duallistbox_genres" class="duallistbox" name="duallistbox_genres[]">
+                        <?php if (!empty($genre)): ?>
+                            <?php foreach ($genre as $g): ?>
+                                <option value="<?= esc($g->id_genre) ?>" <?php if (in_array($g->id_genre, array_column($game_genre, 'genre_id_genre'))) echo 'selected'; ?>><?= esc($g->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_genres[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_genres[]"]').val());
+                        return false;
+                        });
+                    </script>
 
-                
-
+                    <h5 class="mt-2">Tags</h5>
+                    <select multiple="multiple" id="duallistbox_tags" class="duallistbox" name="duallistbox_tags[]">
+                        <?php if (!empty($tag)): ?>
+                            <?php foreach ($tag as $t): ?>
+                                <option value="<?= esc($t->id_tag) ?>" <?php if (in_array($t->id_tag, array_column($game_tag, 'tag_id_tag'))) echo 'selected'; ?>><?= esc($t->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_tags[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_tags[]"]').val());
+                        return false;
+                        });
+                    </script>
+            </div>
                 <div class="mt-3 ms-2">
                     <label for="age" class="form-label">Required Age</label>
                     <input type="number" class="form-control" id="age" name="age" required min="0" max="21" step="1" value="<?= $game->required_age ?>">
@@ -179,9 +160,6 @@
                     <input type="number" class="form-control" id="achievements" name="achievements" required min="0" max="100" step="1" value="<?= $game->achievements ?>">
                 </div>
 
-
-
-
                 <div class="form-floating mb-3 mt-3 ms-2">
                     <input type="text" class="form-control" id="website" placeholder="Website" name="website" value="<?= $game->website ?>">
                     <label for="website">Website</label>
@@ -196,6 +174,25 @@
             </div>
         </div>
         <div class="my-3"> 
+            <div class="ms-2">
+                <label for="photo" class="form-label mt-3"><strong>Photo</strong></label>
+                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg">
+                <div style="overflow: hidden; max-width: 300px;">
+                    <?php
+                    if ($game->photo[0] == "-") {
+                        $img = array(
+                            "src" => base_url('img/main/'.$game->photo),
+                            "class" => "w-100 mt-2",
+                            "alt" => $game->name,
+                            "style" => "object-fit: none;max-width: 100%; height: auto;"
+                            );
+                        echo img($img);
+                    } else { ?>
+                        <img class="w-100 mt-2" src="<?= $game->photo ?>" alt="<?= $game->name ?>">
+                    <?php } ?>
+                </div>
+            </div>
+
             <div class="form-floating my-3">
                 <h5>Description</h5>
                 <textarea id="text" name="text" class="p-5" value="text" rows="25" cols="50"><?= $game->description ?></textarea>

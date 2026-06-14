@@ -77,16 +77,6 @@ class Item extends BaseController
         $path = "img/main/";
         $image = $this->upload->uploadFile($photo, $path, $photo->getName());
 
-        $language_sound = $this->request->getPost("language_id_sound[]");
-        //echo($language_sound); //nefunguje ale duallistbox, takže toto nic nedělá
-        if (is_array($language_sound)) {
-            $language_sound_str = implode(',', $language_sound);
-            echo($language_sound_str);
-        } else {
-            $language_sound_str = $language_sound;
-            echo($language_sound_str);
-        }
-
         $data = array(
             'name' => $name,
             'release_date' => $release,
@@ -105,6 +95,79 @@ class Item extends BaseController
         );
         
         $this->game->save($data);
+
+        $id_game = $this->game->insertID();
+        echo($id_game);
+        $language_sound_selected = $this->request->getPost('duallistbox_lang_sound[]');
+        $ids = is_array($language_sound_selected) ? array_map('intval', $language_sound_selected) : [];
+
+        $data_sound = [];
+        foreach ($language_sound_selected as $langId) {
+            if ($langId > 0) {
+                $data_sound[] = [
+                    'game_id_game'     => (int)$id_game,
+                    'language_id_language' => (int)$langId,
+                ];
+            }
+        }
+
+        if (!empty($data_sound)) {
+            $this->game_language_sound->insertBatch($data_sound);
+        }
+
+
+        $language_text_selected = $this->request->getPost('duallistbox_lang_text[]');
+        $ids = is_array($language_text_selected) ? array_map('intval', $language_text_selected) : [];
+
+        $data_text = [];
+        foreach ($language_text_selected as $langId) {
+            if ($langId > 0) {
+                $data_text[] = [
+                    'game_id_game'     => (int)$id_game,
+                    'language_id_language' => (int)$langId,
+                ];
+            }
+        }
+
+        if (!empty($data_text)) {
+            $this->game_language_text->insertBatch($data_text);
+        }
+
+
+        $genre_selected = $this->request->getPost('duallistbox_genres[]');
+        $ids = is_array($genre_selected) ? array_map('intval', $genre_selected) : [];
+
+        $data_genre = [];
+        foreach ($genre_selected as $genreId) {
+            if ($genreId > 0) {
+                $data_genre[] = [
+                    'game_id_game'     => (int)$id_game,
+                    'genre_id_genre' => (int)$genreId,
+                ];
+            }
+        }
+
+        if (!empty($data_genre)) {
+            $this->game_genre->insertBatch($data_genre);
+        }
+
+
+        $tag_selected = $this->request->getPost('duallistbox_tags[]');
+        $ids = is_array($tag_selected) ? array_map('intval', $tag_selected) : [];
+
+        $data_tag = [];
+        foreach ($tag_selected as $tagId) {
+            if ($tagId > 0) {
+                $data_tag[] = [
+                    'game_id_game'     => (int)$id_game,
+                    'tag_id_tag' => (int)$tagId,
+                ];
+            }
+        }
+
+        if (!empty($data_tag)) {
+            $this->game_tag->insertBatch($data_tag);
+        }
 
         //echo($this->request->getPost("language_id_sound"));
 

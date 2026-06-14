@@ -73,81 +73,77 @@
                 </div>
 
                 <div class="mt-3">
-                    <select class="form-select mb-3" id="genre" name="genre_id" required>
-                        <option value="" disabled selected required>Select genre</option>
-                        <?php if (!empty($genre)): ?>
-                            <?php foreach ($genre as $genree): ?>
-                                <option value="<?= esc($genree->id_genre) ?>"><?= esc($genree->name) ?></option>
-                            <?php endforeach ?>
-                        <?php endif ?>
-                    </select>
-                </div>
-
-                <div class="mt-3">
-                    <select class="form-select mb-3" id="tag" name="tag_id" required>
-                        <option value="" disabled selected required>Select tag</option>
-                        <?php if (!empty($tag)): ?>
-                            <?php foreach ($tag as $tagg): ?>
-                                <option value="<?= esc($tagg->id_tag) ?>"><?= esc($tagg->name) ?></option>
-                            <?php endforeach ?>
-                        <?php endif ?>
-                    </select>
-                </div>
-
-                <div class="mt-3">
-                    <select class="form-select mb-3" id="language_text" name="language_id_text" required>
-                        <option value="" disabled selected required>Select Language for Text</option>
+                    <h5>Languages</h5>
+                    <h6>Sound</h6>
+                    <select multiple="multiple" id="duallistbox_lang_sound" class="duallistbox" name="duallistbox_lang_sound[]">
                         <?php if (!empty($language)): ?>
                             <?php foreach ($language as $lang): ?>
                                 <option value="<?= esc($lang->id_language) ?>"><?= esc($lang->name) ?></option>
                             <?php endforeach ?>
                         <?php endif ?>
                     </select>
-                </div>
-
-                <div class="mt-3">
-                    <pre class="prettyprint">
-                    var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();</pre> <!-- Nefunkční idk proč už :C -->
-                        <select multiple="multiple" id="duallistbox_demo1" class="duallistbox" name="duallistbox_demo1[]">
-                        <?php if (!empty($language)): ?>
-                            <?php foreach ($language as $lang): ?>
-                                <option value="<?= esc($lang->id_language) ?>"><?= esc($lang->name) ?></option>
-                            <?php endforeach ?>
-                        <?php endif ?>
-                        </select>
-                        <br>
-                    <script>
-                        var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_lang_sound[]"]').bootstrapDualListbox();
                         $("#demoform").submit(function() {
-                        alert($('[name="duallistbox_demo1[]"]').val());
+                        alert($('[name="duallistbox_lang_sound[]"]').val());
                         return false;
                         });
                     </script>
 
-
-
-
-
-                    
-                    <label for="language_sound" class="form-label">Select Languages for Sound</label>
-                    <select multiple class="form-select duallistbox mb-3" id="language_sound" name="language_id_sound[]" required>
+                    <h6 class="mt-2">Text</h6>
+                    <select multiple="multiple" id="duallistbox_lang_text" class="duallistbox" name="duallistbox_lang_text[]">
                         <?php if (!empty($language)): ?>
                             <?php foreach ($language as $lang): ?>
                                 <option value="<?= esc($lang->id_language) ?>"><?= esc($lang->name) ?></option>
                             <?php endforeach ?>
                         <?php endif ?>
                     </select>
-                </div>
-            </div>
-            <div class="col-7">
-                <div class="ms-2">
-                    <div>
-                        <label for="photo" class="form-label">Photo</label>
-                        <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg" required>
-                    </div>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_lang_text[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_lang_text[]"]').val());
+                        return false;
+                        });
+                    </script>
                 </div>
 
+
                 
+            </div>
+            <div class="col-6">
+                <div class="mt-3 ms-2">
+                    <h5>Genres</h5>
+                    <select multiple="multiple" id="duallistbox_genres" class="duallistbox" name="duallistbox_genres[]">
+                        <?php if (!empty($genre)): ?>
+                            <?php foreach ($genre as $g): ?>
+                                <option value="<?= esc($g->id_genre) ?>"><?= esc($g->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_genres[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_genres[]"]').val());
+                        return false;
+                        });
+                    </script>
+
+                    <h5 class="mt-2">Tags</h5>
+                    <select multiple="multiple" id="duallistbox_tags" class="duallistbox" name="duallistbox_tags[]">
+                        <?php if (!empty($tag)): ?>
+                            <?php foreach ($tag as $t): ?>
+                                <option value="<?= esc($t->id_tag) ?>"><?= esc($t->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_tags[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_tags[]"]').val());
+                        return false;
+                        });
+                    </script>
+                </div>              
 
                 <div class="mt-3 ms-2">
                     <label for="age" class="form-label">Required Age</label>
@@ -164,9 +160,6 @@
                     <input type="number" class="form-control" id="achievements" name="achievements" required min="0" max="100" step="1" required>
                 </div>
 
-
-
-
                 <div class="form-floating mb-3 mt-3 ms-2">
                     <input type="text" class="form-control" id="website" placeholder="Website" name="website">
                     <label for="website">Website</label>
@@ -176,10 +169,16 @@
                     <input type="text" class="form-control" id="email" placeholder="Email" name="email">
                     <label for="email">Email</label>
                 </div>
-
-
             </div>
         </div>
+
+        <div class="mt-3">
+            <div>
+                <label for="photo" class="form-label"><strong>Photo</strong></label>
+                <input type="file" class="form-control" id="photo" name="photo" accept=".jpg, .png, .jpeg, .svg" required>
+            </div>
+        </div>
+
         <div class="my-3"> 
             <div class="form-floating my-3">
                 <h5>Description</h5>
