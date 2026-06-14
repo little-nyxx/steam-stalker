@@ -317,7 +317,8 @@ class Item extends BaseController
             return redirect()->to('/dashboard')->with('error', 'Game not found');
         }
 
-        $this->game->update($id_game, ['deleted_at' => date('Y-m-d H:i:s')]);
+        //$this->game->update($id_game, ['deleted_at' => date('Y-m-d H:i:s')]);
+        $this->game->delete($id_game, false); //tahle vec v teorii funguje, prakticky na tu hru je navazano tolik veci, ze se nechce smazat :( prosime o odpusteni
 
         return redirect()->to('dashboard')->with('success', 'Game moved to trash (soft deleted)');
 

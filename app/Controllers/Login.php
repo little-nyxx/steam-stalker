@@ -9,6 +9,8 @@ class Login extends BaseController
 {
     public function index()
     {
-        return view('Login/login.php');
+        return view('Login/login.php', [
+            'alert' => session()->getFlashdata('alert'),
+        ]);
     }
 }

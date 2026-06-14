@@ -51,6 +51,7 @@
         }
         ?>
         <a class="btn btn-success" href="item/add">Add Game</a>
+        <a class="btn btn-success ms-2" href="generate_game_list_pdf" target="_blank">Generate PDF</a>
 
    
         <?php

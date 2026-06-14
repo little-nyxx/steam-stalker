@@ -38,11 +38,34 @@ class Admin extends BaseController
 
     public function login()
     {
-        $login = $this->request->getPost("email");
-        $password = $this->request->getPost("password");
-        $logged = $this->ionAuth->login($login, $password);
+        $identity = trim((string) $this->request->getPost('identity'));
+        $password = (string) $this->request->getPost('password');
         $alertObject = new stdClass();
-        if($logged) {
+
+        $user = null;
+        if ($identity !== '') {
+            $user = db_connect()
+                ->table('users')
+                ->groupStart()
+                ->where('email', $identity)
+                ->orWhere('username', $identity)
+                ->groupEnd()
+                ->limit(1)
+                ->get()
+                ->getRow();
+        }
+
+        if ($user && password_verify($password, $user->password)) {
+            if ((int) $user->active !== 1) {
+                $alertObject->text = $this->config->errorMessage['loginDanger'];
+                $alertObject->type = 'danger';
+                return redirect()->to('login')->with('alert', $alertObject);
+            }
+
+            $this->ionAuth->setSession($user);
+            $this->ionAuth->updateLastLogin($user->id);
+            $this->ionAuth->clearLoginAttempts($identity);
+
             $alertObject->text = $this->config->errorMessage['loginSuccess'];
             $alertObject->type = 'success';
             return redirect()->to('dashboard')->with('alert', $alertObject);

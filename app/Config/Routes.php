@@ -13,6 +13,7 @@ $routes->group('game', function($routes){
     $routes->post('(:num)/(:num)', 'Home::test/$1/$2');
     $routes->get('choose', 'Home::choose');
     $routes->get('stats', 'Home::stats');
+    //$routes->get('generate_game_list_pdf', 'Pdf::generateGameListPdf');
 });
 
 $routes->group('item', function($routes){
@@ -31,3 +32,4 @@ $routes->get('login', 'Login::index');
 $routes->get('dashboard', 'Admin::index');
 $routes->get('/game/(:num)/edit', 'Item::edit/$1');
 
+$routes->get('generate_game_list_pdf', 'Pdf::generateGameListPdf');

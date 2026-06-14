@@ -10,15 +10,10 @@
     <div class="offset-3 col-6">
      <h1 class="my-3">Login</h1>
       <form action="<?= base_url('login') ?>" method="post">
-        <!-- <div class="mb-3 mt-3 form-floating">
-          <input type="text" class="form-control" placeholder="username" id="username" name="username" required>
-          <label for="username"><i class="fa-regular fa-user"></i> Username:</label>
-        </div> -->
-
         <div class="mb-3 mt-3 form-floating">
-          <input type="text" class="form-control" placeholder="Email" id="email" name="email" required>
-          <label for="email"><i class="fa-regular fa-envelope"></i> Email:</label>
-        </div> <!-- email jestli chceme udělat to přihlášení na jedno pomocí username i emailu?? => případně to udělat na přepínání? --> 
+          <input type="text" class="form-control" placeholder="Email or username" id="identity" name="identity" required>
+          <label for="identity"><i class="fa-regular fa-user"></i> Email or username:</label>
+        </div>
        <div class="mb-3 mt-3 form-floating">
           <input type="password" class="form-control" placeholder="Heslo" id="password" name="password" minlength="8" required>
           <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);"></i>
