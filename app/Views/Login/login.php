@@ -31,9 +31,7 @@
           <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
         </div>
 
-        <div>
-            <p>Don't have an account? <a><?= anchor("register", "Register here!")?></a></p> <!-- jestli teda registraci dělat chceme? nikde v zadání jsem to nenašla, tak asi nemusíme idk-->
-        </div>
+        
 
         <a href="#"><button type="submit" class="btn btn-success">Login</button></a>
       </form> 
