@@ -75,10 +75,76 @@
                     </div>
                 </div>
 
-                
+                <div class="mt-3">
+                    <h5>Genres</h5>
+                    <select multiple="multiple" id="duallistbox_genres" class="duallistbox" name="duallistbox_genres[]">
+                        <?php if (!empty($genre)): ?>
+                            <?php foreach ($genre as $g): ?>
+                                <option value="<?= esc($g->id_genre) ?>" <?php if (in_array($g->id_genre, array_column($game_genre, 'genre_id_genre'))) echo 'selected'; ?>><?= esc($g->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_genres[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_genres[]"]').val());
+                        return false;
+                        });
+                    </script>
 
-                
+                    <h5 class="mt-2">Tags</h5>
+                    <select multiple="multiple" id="duallistbox_tags" class="duallistbox" name="duallistbox_tags[]">
+                        <?php if (!empty($tag)): ?>
+                            <?php foreach ($tag as $t): ?>
+                                <option value="<?= esc($t->id_tag) ?>" <?php if (in_array($t->id_tag, array_column($game_tag, 'tag_id_tag'))) echo 'selected'; ?>><?= esc($t->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_tags[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_tags[]"]').val());
+                        return false;
+                        });
+                    </script>
             </div>
+
+
+                <div class="mt-3">
+                    <h5>Languages</h5>
+                    <h6>Sound</h6>
+                    <select multiple="multiple" id="duallistbox_lang_sound" class="duallistbox" name="duallistbox_lang_sound[]">
+                        <?php if (!empty($language)): ?>
+                            <?php foreach ($language as $lang): ?>
+                                <option value="<?= esc($lang->id_language) ?>" <?php if (in_array($lang->id_language, array_column($game_language_sound, 'language_id_language'))) echo 'selected'; ?>><?= esc($lang->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_lang_sound[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_lang_sound[]"]').val());
+                        return false;
+                        });
+                    </script>
+
+                    <h6 class="mt-2">Text</h6>
+                    <select multiple="multiple" id="duallistbox_lang_text" class="duallistbox" name="duallistbox_lang_text[]">
+                        <?php if (!empty($language)): ?>
+                            <?php foreach ($language as $lang): ?>
+                                <option value="<?= esc($lang->id_language) ?>" <?php if (in_array($lang->id_language, array_column($game_language_text, 'language_id_language'))) echo 'selected'; ?>><?= esc($lang->name) ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                    </select>
+                    <script style="display: none;">
+                        var sound = $('select[name="duallistbox_lang_text[]"]').bootstrapDualListbox();
+                        $("#demoform").submit(function() {
+                        alert($('[name="duallistbox_lang_text[]"]').val());
+                        return false;
+                        });
+                    </script>
+            </div>
+
             <div class="col-7">
                 <div class="ms-2">
                     <label for="photo" class="form-label">Photo</label>

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Tag extends Model
 {
     protected $table            = 'tag';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_tag';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;

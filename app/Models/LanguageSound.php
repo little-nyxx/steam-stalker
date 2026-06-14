@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Language extends Model
+class LanguageSound extends Model
 {
-    protected $table            = 'language';
-    protected $primaryKey       = 'id_language';
-    protected $useAutoIncrement = true;
+    protected $table            = 'game_language_sound';
+    protected $primaryKey       = "game_id_game";
+    protected $useAutoIncrement = false;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ["game_id_game", "language_id_language"];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
