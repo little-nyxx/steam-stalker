@@ -70,6 +70,15 @@ class Home extends BaseController
         return view('Game/two-games.php', $data);
     }
 
+    public function stats() {
+        $data = [
+            'summary' => $this->game->getPriceAggregates(),
+            'developerStats' => $this->game->getDeveloperPriceStats(),
+        ];
+
+        return view('Game/stats.php', $data);
+    }
+
     public function choose() {
         $data["game"] = $this->game->orderBy("name", "asc")->findAll();
         return view('Game/choose.php', $data);

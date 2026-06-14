@@ -12,6 +12,7 @@ $routes->group('game', function($routes){
     $routes->get('(:num)', 'Home::game/$1');
     $routes->post('(:num)/(:num)', 'Home::test/$1/$2');
     $routes->get('choose', 'Home::choose');
+    $routes->get('stats', 'Home::stats');
 });
 
 $routes->group('item', function($routes){
